@@ -21,7 +21,7 @@ Silver Layer (swapi_demo.silver.characters_cleaned)
     ↓
 Gold Layer (swapi_demo.gold.dim_characters)
     ↓
-Dashboard (KPI Analytics & Visualizations)
+AI/BI Dashboard (KPI Analytics & Visualizations)
 ```
 
 ## Files
@@ -57,22 +57,22 @@ Dashboard (KPI Analytics & Visualizations)
 - **Droids**: 8 droids, 74 non-droids
 - **Birth Year Range**: -896 BBY to 256 ABY
 
-## Dashboard
+## AI/BI Dashboard
 
-View the prepared KPI dashboard: `swapi_kpi_dashboard.lvdash.json`
+View the prepared KPI AI/BI dashboard: `swapi_kpi_dashboard.lvdash.json`
 
-### Dashboard KPIs
+### AI/BI Dashboard KPIs
 - 3 Key metrics counters (Total, Avg Height, Avg Mass)
 - 3 Distribution charts (Height/Mass categories, Droid split)
 - Rankings (Top 10 tallest and heaviest)
 - Timeline analysis (Birth year distribution)
 
-### Dashboard Screenshots
+### AI/BI Dashboard Screenshots
 
-**Dashboard Overview:**
-![SWAPI Dashboard 1](swapi_dashboard_1.png)
+**AI/BI Dashboard Overview:**
+![SWAPI AI/BI Dashboard 1](swapi_dashboard_1.png)
 
-**Dashboard Details:**
+**AI/BI Dashboard Details:**
 ![SWAPI Dashboard 2](swapi_dashboard_2.png)
 
 ## Technology Stack
