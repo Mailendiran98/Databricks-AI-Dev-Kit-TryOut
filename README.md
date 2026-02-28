@@ -57,13 +57,21 @@ Gold Layer (swapi_demo.gold.dim_characters)
 
 ## Dashboard
 
-View the prepared KPI dashboard: `../swapi_kpi_dashboard.lvdash.json`
+View the prepared KPI dashboard: `swapi_kpi_dashboard.lvdash.json`
 
 ### Dashboard KPIs
 - 3 Key metrics counters (Total, Avg Height, Avg Mass)
 - 3 Distribution charts (Height/Mass categories, Droid split)
 - Rankings (Top 10 tallest and heaviest)
 - Timeline analysis (Birth year distribution)
+
+### Dashboard Screenshots
+
+**Dashboard Overview:**
+![SWAPI Dashboard 1](swapi_dashboard_1.png)
+
+**Dashboard Details:**
+![SWAPI Dashboard 2](swapi_dashboard_2.png)
 
 ## Technology Stack
 
