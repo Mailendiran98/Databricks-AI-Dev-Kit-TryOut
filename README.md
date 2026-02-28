@@ -20,6 +20,8 @@ Bronze Layer (swapi_demo.raw_data.characters)
 Silver Layer (swapi_demo.silver.characters_cleaned)
     ↓
 Gold Layer (swapi_demo.gold.dim_characters)
+    ↓
+Dashboard (KPI Analytics & Visualizations)
 ```
 
 ## Files
