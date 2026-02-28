@@ -1,0 +1,561 @@
+{
+  "datasets": [
+    {
+      "name": "ds_total_count",
+      "displayName": "Total Character Count",
+      "queryLines": [
+        "SELECT COUNT(*) as total_char FROM swapi_demo.gold.dim_characters"
+      ]
+    },
+    {
+      "name": "ds_avg_height",
+      "displayName": "Average Height",
+      "queryLines": [
+        "SELECT ROUND(AVG(height_cm), 1) as avg_ht ",
+        "FROM swapi_demo.gold.dim_characters ",
+        "WHERE height_cm IS NOT NULL"
+      ]
+    },
+    {
+      "name": "ds_avg_mass",
+      "displayName": "Average Mass",
+      "queryLines": [
+        "SELECT ROUND(AVG(mass_kg), 1) as avg_ms ",
+        "FROM swapi_demo.gold.dim_characters ",
+        "WHERE mass_kg IS NOT NULL"
+      ]
+    },
+    {
+      "name": "ds_height_cat_dist",
+      "displayName": "Height Categories Distribution",
+      "queryLines": [
+        "SELECT height_category as cat, COUNT(*) as cnt ",
+        "FROM swapi_demo.gold.dim_characters ",
+        "WHERE height_category IS NOT NULL ",
+        "GROUP BY height_category ",
+        "ORDER BY cnt DESC"
+      ]
+    },
+    {
+      "name": "ds_mass_cat_dist",
+      "displayName": "Mass Categories Distribution",
+      "queryLines": [
+        "SELECT mass_category as cat, COUNT(*) as cnt ",
+        "FROM swapi_demo.gold.dim_characters ",
+        "WHERE mass_category IS NOT NULL ",
+        "GROUP BY mass_category ",
+        "ORDER BY cnt DESC"
+      ]
+    },
+    {
+      "name": "ds_droid_split",
+      "displayName": "Droid Distribution",
+      "queryLines": [
+        "SELECT CASE WHEN is_droid THEN 'Droid' ELSE 'Non-Droid' END as dtype, COUNT(*) as cnt ",
+        "FROM swapi_demo.gold.dim_characters ",
+        "GROUP BY is_droid"
+      ]
+    },
+    {
+      "name": "ds_top_tall",
+      "displayName": "Top 10 Tallest Characters",
+      "queryLines": [
+        "SELECT character_name as name, height_cm as ht ",
+        "FROM swapi_demo.gold.dim_characters ",
+        "WHERE height_cm IS NOT NULL ",
+        "ORDER BY height_cm DESC ",
+        "LIMIT 10"
+      ]
+    },
+    {
+      "name": "ds_top_heavy",
+      "displayName": "Top 10 Heaviest Characters",
+      "queryLines": [
+        "SELECT character_name as name, mass_kg as ms ",
+        "FROM swapi_demo.gold.dim_characters ",
+        "WHERE mass_kg IS NOT NULL ",
+        "ORDER BY mass_kg DESC ",
+        "LIMIT 10"
+      ]
+    },
+    {
+      "name": "ds_birth_timeline",
+      "displayName": "Birth Year Distribution",
+      "queryLines": [
+        "SELECT CAST(birth_year_timeline AS INT) as yr, COUNT(*) as cnt ",
+        "FROM swapi_demo.gold.dim_characters ",
+        "WHERE birth_year_timeline IS NOT NULL ",
+        "GROUP BY CAST(birth_year_timeline AS INT) ",
+        "ORDER BY yr"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "kpi_dashboard",
+      "displayName": "SWAPI KPI Dashboard",
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layout": [
+        {
+          "widget": {
+            "name": "title",
+            "multilineTextboxSpec": {
+              "lines": ["# SWAPI Character Analytics Dashboard"]
+            }
+          },
+          "position": {"x": 0, "y": 0, "width": 6, "height": 1}
+        },
+        {
+          "widget": {
+            "name": "subtitle",
+            "multilineTextboxSpec": {
+              "lines": ["Star Wars characters analysis from Gold layer (82 total records)"]
+            }
+          },
+          "position": {"x": 0, "y": 1, "width": 6, "height": 1}
+        },
+        {
+          "widget": {
+            "name": "section-metrics",
+            "multilineTextboxSpec": {
+              "lines": ["## Key Metrics"]
+            }
+          },
+          "position": {"x": 0, "y": 2, "width": 6, "height": 1}
+        },
+        {
+          "widget": {
+            "name": "total_char_counter",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ds_total_count",
+                  "fields": [
+                    {
+                      "name": "total_char",
+                      "expression": "`total_char`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "total_char",
+                  "displayName": "Total Characters"
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Total Characters"
+              }
+            }
+          },
+          "position": {"x": 0, "y": 3, "width": 2, "height": 3}
+        },
+        {
+          "widget": {
+            "name": "avg_height_counter",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ds_avg_height",
+                  "fields": [
+                    {
+                      "name": "avg_ht",
+                      "expression": "`avg_ht`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "avg_ht",
+                  "displayName": "Avg Height (cm)"
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Avg Height (cm)"
+              }
+            }
+          },
+          "position": {"x": 2, "y": 3, "width": 2, "height": 3}
+        },
+        {
+          "widget": {
+            "name": "avg_mass_counter",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ds_avg_mass",
+                  "fields": [
+                    {
+                      "name": "avg_ms",
+                      "expression": "`avg_ms`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "avg_ms",
+                  "displayName": "Avg Mass (kg)"
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Avg Mass (kg)"
+              }
+            }
+          },
+          "position": {"x": 4, "y": 3, "width": 2, "height": 3}
+        },
+        {
+          "widget": {
+            "name": "section-dist",
+            "multilineTextboxSpec": {
+              "lines": ["## Distributions"]
+            }
+          },
+          "position": {"x": 0, "y": 6, "width": 6, "height": 1}
+        },
+        {
+          "widget": {
+            "name": "height_cat_bar",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ds_height_cat_dist",
+                  "fields": [
+                    {
+                      "name": "cat",
+                      "expression": "`cat`"
+                    },
+                    {
+                      "name": "cnt",
+                      "expression": "`cnt`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "cat",
+                  "displayName": "Category",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "cnt",
+                  "displayName": "Count",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Height Categories"
+              }
+            }
+          },
+          "position": {"x": 0, "y": 7, "width": 2, "height": 5}
+        },
+        {
+          "widget": {
+            "name": "mass_cat_bar",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ds_mass_cat_dist",
+                  "fields": [
+                    {
+                      "name": "cat",
+                      "expression": "`cat`"
+                    },
+                    {
+                      "name": "cnt",
+                      "expression": "`cnt`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "cat",
+                  "displayName": "Category",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "cnt",
+                  "displayName": "Count",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Mass Categories"
+              }
+            }
+          },
+          "position": {"x": 2, "y": 7, "width": 2, "height": 5}
+        },
+        {
+          "widget": {
+            "name": "droid_pie",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ds_droid_split",
+                  "fields": [
+                    {
+                      "name": "dtype",
+                      "expression": "`dtype`"
+                    },
+                    {
+                      "name": "cnt",
+                      "expression": "`cnt`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "pie",
+              "encodings": {
+                "angle": {
+                  "fieldName": "cnt",
+                  "displayName": "Count",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "dtype",
+                  "displayName": "Type",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Droid Distribution"
+              }
+            }
+          },
+          "position": {"x": 4, "y": 7, "width": 2, "height": 5}
+        },
+        {
+          "widget": {
+            "name": "section-top",
+            "multilineTextboxSpec": {
+              "lines": ["## Top Rankings"]
+            }
+          },
+          "position": {"x": 0, "y": 12, "width": 6, "height": 1}
+        },
+        {
+          "widget": {
+            "name": "top_tallest_bar",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ds_top_tall",
+                  "fields": [
+                    {
+                      "name": "name",
+                      "expression": "`name`"
+                    },
+                    {
+                      "name": "ht",
+                      "expression": "`ht`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "ht",
+                  "displayName": "Height (cm)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "name",
+                  "displayName": "Character",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "mark": {
+                  "layout": "horizontal"
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Top 10 Tallest"
+              }
+            }
+          },
+          "position": {"x": 0, "y": 13, "width": 3, "height": 5}
+        },
+        {
+          "widget": {
+            "name": "top_heavy_bar",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ds_top_heavy",
+                  "fields": [
+                    {
+                      "name": "name",
+                      "expression": "`name`"
+                    },
+                    {
+                      "name": "ms",
+                      "expression": "`ms`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "ms",
+                  "displayName": "Mass (kg)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "name",
+                  "displayName": "Character",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "mark": {
+                  "layout": "horizontal"
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Top 10 Heaviest"
+              }
+            }
+          },
+          "position": {"x": 3, "y": 13, "width": 3, "height": 5}
+        },
+        {
+          "widget": {
+            "name": "section-timeline",
+            "multilineTextboxSpec": {
+              "lines": ["## Timeline Analysis"]
+            }
+          },
+          "position": {"x": 0, "y": 18, "width": 6, "height": 1}
+        },
+        {
+          "widget": {
+            "name": "birth_timeline_line",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ds_birth_timeline",
+                  "fields": [
+                    {
+                      "name": "yr",
+                      "expression": "`yr`"
+                    },
+                    {
+                      "name": "cnt",
+                      "expression": "`cnt`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "yr",
+                  "displayName": "Birth Year",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "cnt",
+                  "displayName": "Count",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Birth Year Distribution (BBY=negative)"
+              }
+            }
+          },
+          "position": {"x": 0, "y": 19, "width": 6, "height": 5}
+        }
+      ]
+    }
+  ]
+}
