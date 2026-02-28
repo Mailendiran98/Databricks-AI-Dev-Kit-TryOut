@@ -24,11 +24,27 @@ Gold Layer (swapi_demo.gold.dim_characters)
 AI/BI Dashboard (KPI Analytics & Visualizations)
 ```
 
-## Files
+## Files & Folder Structure
 
-- **`ingest_swapi.py`** - Ingests character data from SWAPI API
-- **`transform_silver.py`** - Cleanses and transforms bronze data to silver layer
-- **`transform_gold.py`** - Creates dimensional model from silver data
+```
+swapi_job/
+├── scripts/
+│   ├── ingest_swapi.py              # Ingests data from SWAPI API
+│   ├── transform_silver.py          # Silver layer transformation
+│   └── transform_gold.py            # Gold layer transformation
+├── dashboards/
+│   └── swapi_kpi_dashboard.lvdash.json  # Lakeview AI/BI dashboard definition
+├── screenshots/
+│   ├── swapi_dashboard_1.png        # Dashboard overview screenshot
+│   └── swapi_dashboard_2.png        # Dashboard details screenshot
+├── README.md                        # Project documentation
+└── .gitignore                       # Git ignore rules
+```
+
+### Scripts
+- **`scripts/ingest_swapi.py`** - Ingests character data from SWAPI API
+- **`scripts/transform_silver.py`** - Cleanses and transforms bronze data to silver layer
+- **`scripts/transform_gold.py`** - Creates dimensional model from silver data
 
 ## Data Flow
 
@@ -59,7 +75,7 @@ AI/BI Dashboard (KPI Analytics & Visualizations)
 
 ## AI/BI Dashboard
 
-View the prepared KPI AI/BI dashboard: `swapi_kpi_dashboard.lvdash.json`
+View the prepared KPI AI/BI dashboard: `dashboards/swapi_kpi_dashboard.lvdash.json`
 
 ### AI/BI Dashboard KPIs
 - 3 Key metrics counters (Total, Avg Height, Avg Mass)
@@ -70,10 +86,10 @@ View the prepared KPI AI/BI dashboard: `swapi_kpi_dashboard.lvdash.json`
 ### AI/BI Dashboard Screenshots
 
 **AI/BI Dashboard Overview:**
-![SWAPI AI/BI Dashboard 1](swapi_dashboard_1.png)
+![SWAPI AI/BI Dashboard 1](screenshots/swapi_dashboard_1.png)
 
 **AI/BI Dashboard Details:**
-![SWAPI Dashboard 2](swapi_dashboard_2.png)
+![SWAPI Dashboard 2](screenshots/swapi_dashboard_2.png)
 
 ## Technology Stack
 
